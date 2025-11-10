@@ -76,3 +76,7 @@ crashlytics-build.properties
 
 # History extension
 .history
+
+# Visual Code Config
+.vscode/
+.vsconfig
