@@ -5,7 +5,6 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     Vector3 playerPosition;
-    [SerializeField] float speed = 5f;
     [Header("Mouse Look")]
     [SerializeField] float mouseSensitivity = 100f;
     bool cursorLocked = true;
@@ -21,10 +20,6 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        // playerPosition.z += Time.deltaTime * speed;
-
-        // transform.position = playerPosition;
 
         // Yaw rotation (rotate around the Y axis) from mouse horizontal movement
         // "Mouse X" from the Input Manager is used here. Multiply by sensitivity and Time.deltaTime
