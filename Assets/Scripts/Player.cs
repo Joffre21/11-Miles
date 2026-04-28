@@ -28,9 +28,14 @@ public class Player : MonoBehaviour
     // runtime accumulated angles
     float currentYaw;
     float currentPitch;
-    // Start is called before the first frame update
+
+    private GameManager gm;
+
     void Start()
     {
+        gm = FindObjectOfType<GameManager>();
+        if (gm == null || !gm.GameStarted)
+            return;
         playerPosition = transform.position;
         // Lock the cursor for FPS-style mouse look
         Cursor.lockState = CursorLockMode.Locked;
@@ -51,6 +56,8 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (gm == null || !gm.GameStarted)
+            return;
 
         // Read mouse deltas
         float dx = Input.GetAxisRaw("Mouse X") * mouseSensitivity;
@@ -73,8 +80,6 @@ public class Player : MonoBehaviour
             headTransform.localRotation = Quaternion.Euler(currentPitch, 0f, 0f);
         }
 
-        
-
         // Allow unlocking the cursor with Escape (useful during development)
         if (Input.GetKeyDown(KeyCode.Escape))
         {
@@ -86,8 +91,9 @@ public class Player : MonoBehaviour
 
     void LateUpdate()
     {
+        if (gm == null || !gm.GameStarted)
+            return;
         // Apply yaw to player body
         transform.rotation = Quaternion.Euler(0f, currentYaw, 0f);
     }
-
 }

@@ -6,17 +6,19 @@ public class MoveRoad : MonoBehaviour
 {
 
     [SerializeField] float speed = 10f;
+    private GameManager gm;
 
-    // Start is called before the first frame update
     void Start()
     {
-        
+        gm = FindObjectOfType<GameManager>();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        transform.position += new Vector3(0f, 0f, -speed) * Time.deltaTime;
+        if (gm != null && gm.GameStarted)
+        {
+            transform.position += new Vector3(0f, 0f, -speed) * Time.deltaTime;
+        }
     }
 
     void OnTriggerEnter(Collider other)
