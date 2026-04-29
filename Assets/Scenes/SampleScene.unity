@@ -218,7 +218,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -471, y: 258}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &146322378
@@ -440,8 +440,8 @@ MonoBehaviour:
   maxPitch: 20
   invertY: 1
   speed: 10
-  speedIncreasePerSecond: 2
-  maxSpeed: 25
+  speedIncreasePerSecond: 1.5
+  maxSpeed: 50
   targetSceneName: Start Menu
 --- !u!114 &166498708
 MonoBehaviour:
@@ -1105,7 +1105,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3215651180260021479, guid: 1b1197426fc4bfd4b9fe4ec3eda40847, type: 3}
       propertyPath: m_IsTrigger
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4526138984384812543, guid: 1b1197426fc4bfd4b9fe4ec3eda40847, type: 3}
       propertyPath: m_LocalRotation.w
