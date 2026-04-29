@@ -151,7 +151,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8eb7d08a88721e249aa97330a7e294a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameStarted: 0
+  gameStarted: 1
 --- !u!4 &47317327
 Transform:
   m_ObjectHideFlags: 0
@@ -443,6 +443,10 @@ MonoBehaviour:
   speedIncreasePerSecond: 1.5
   maxSpeed: 50
   targetSceneName: Start Menu
+  turnSpeed: 10
+  targetPosition: {x: 16.988, y: 5.994, z: 0.312}
+  returnSpeed: 5
+  car: {fileID: 2031133703}
 --- !u!114 &166498708
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -642,9 +646,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 47317327}
     m_Modifications:
+    - target: {fileID: 1656453798362744425, guid: 788d75edc6304094aafd21101759a6e4, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2069908716608208162, guid: 788d75edc6304094aafd21101759a6e4, type: 3}
       propertyPath: targetSceneName
       value: Start Menu
+      objectReference: {fileID: 0}
+    - target: {fileID: 3063108138738460700, guid: 788d75edc6304094aafd21101759a6e4, type: 3}
+      propertyPath: m_TagString
+      value: Crasher
       objectReference: {fileID: 0}
     - target: {fileID: 5602279452782367971, guid: 788d75edc6304094aafd21101759a6e4, type: 3}
       propertyPath: m_RootOrder
@@ -693,6 +705,14 @@ PrefabInstance:
     - target: {fileID: 5602279452782367972, guid: 788d75edc6304094aafd21101759a6e4, type: 3}
       propertyPath: m_Name
       value: Road (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6537926579682144022, guid: 788d75edc6304094aafd21101759a6e4, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8058089085951044980, guid: 788d75edc6304094aafd21101759a6e4, type: 3}
+      propertyPath: m_TagString
+      value: Crasher
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 788d75edc6304094aafd21101759a6e4, type: 3}
@@ -990,6 +1010,11 @@ Transform:
   m_Father: {fileID: 166498706}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1456289154 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8686518377410224632, guid: 1b1197426fc4bfd4b9fe4ec3eda40847, type: 3}
+  m_PrefabInstance: {fileID: 1836469264}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1563126291
 GameObject:
   m_ObjectHideFlags: 0
@@ -1099,6 +1124,30 @@ PrefabInstance:
       propertyPath: m_InnerSpotAngle
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3088243108032467300, guid: 1b1197426fc4bfd4b9fe4ec3eda40847, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3088243108032467300, guid: 1b1197426fc4bfd4b9fe4ec3eda40847, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3088243108032467300, guid: 1b1197426fc4bfd4b9fe4ec3eda40847, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.95371693
+      objectReference: {fileID: 0}
+    - target: {fileID: 3088243108032467300, guid: 1b1197426fc4bfd4b9fe4ec3eda40847, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.30070582
+      objectReference: {fileID: 0}
+    - target: {fileID: 3088243108032467300, guid: 1b1197426fc4bfd4b9fe4ec3eda40847, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -145
+      objectReference: {fileID: 0}
+    - target: {fileID: 3088243108032467300, guid: 1b1197426fc4bfd4b9fe4ec3eda40847, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 180
+      objectReference: {fileID: 0}
     - target: {fileID: 3215651180260021479, guid: 1b1197426fc4bfd4b9fe4ec3eda40847, type: 3}
       propertyPath: m_Convex
       value: 1
@@ -1198,6 +1247,22 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4806299823125316812, guid: 1b1197426fc4bfd4b9fe4ec3eda40847, type: 3}
   m_PrefabInstance: {fileID: 1836469264}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2031133703
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1456289154}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52c2ddcc27d965a439f737ed6c875c63, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetSceneName: Start Menu
+  spinSpeed: 5
+  targetPosition: {x: 17.536, y: 4.6207, z: -0.16}
+  returnSpeed: 5
 --- !u!1001 &5602279451809656471
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1260,6 +1325,10 @@ PrefabInstance:
     - target: {fileID: 5602279452782367972, guid: 788d75edc6304094aafd21101759a6e4, type: 3}
       propertyPath: m_TagString
       value: Trigger
+      objectReference: {fileID: 0}
+    - target: {fileID: 8058089085951044980, guid: 788d75edc6304094aafd21101759a6e4, type: 3}
+      propertyPath: m_TagString
+      value: Crasher
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 788d75edc6304094aafd21101759a6e4, type: 3}

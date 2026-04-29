@@ -6,7 +6,6 @@ using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
-    Vector3 playerPosition;
     [Header("Mouse Look")]
     [SerializeField] float mouseSensitivity = 100f;
     bool cursorLocked = true;
@@ -31,6 +30,7 @@ public class Player : MonoBehaviour
     float currentYaw;
     float currentPitch;
 
+
     [Header("Speed Progression")]
     [SerializeField] float speed = 10f;
     [SerializeField] float speedIncreasePerSecond = 2f;
@@ -38,16 +38,20 @@ public class Player : MonoBehaviour
     [SerializeField] string targetSceneName = "Start Menu";
     private bool triggeredSceneChange = false;
 
+    [Header("Turn/Strafe Speed")]
+    [SerializeField] float turnSpeed = 10f;
+    [SerializeField] private Vector3 targetPosition = new Vector3(16.988f, 5.994f, 0.312f);
+    [SerializeField] private float returnSpeed = 5f;
+
     public float CurrentSpeed => speed;
+
+    [SerializeField] Car car;
 
     private GameManager gm;
 
     void Start()
     {
         gm = FindObjectOfType<GameManager>();
-        if (gm == null || !gm.GameStarted)
-            return;
-        playerPosition = transform.position;
         // Lock the cursor for FPS-style mouse look
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
@@ -80,6 +84,21 @@ public class Player : MonoBehaviour
             SceneManager.LoadScene(targetSceneName);
             return;
         }
+
+        // Handle left/right movement (A/D or Left/Right Arrow)
+        float horizontalInput = Input.GetAxisRaw("Horizontal"); // -1 (A/Left), 1 (D/Right)
+        if (horizontalInput != 0f)
+        {
+            // Move left/right in world X axis, scaled by turnSpeed
+            float moveAmount = horizontalInput * turnSpeed * Time.deltaTime;
+            transform.position += new Vector3(moveAmount, 0f, 0f);
+            if (car != null)
+            {
+                car.UpdateCarTransform(moveAmount);
+            }
+        }
+        else
+            returnToInitialPosition();
 
         // Read mouse deltas
         float dx = Input.GetAxisRaw("Mouse X") * mouseSensitivity;
@@ -117,5 +136,17 @@ public class Player : MonoBehaviour
             return;
         // Apply yaw to player body
         transform.rotation = Quaternion.Euler(0f, currentYaw, 0f);
+    }
+
+    void returnToInitialPosition()
+    {
+        if (Vector3.Distance(transform.position, targetPosition) > 0.01f)
+        {
+            transform.position = Vector3.MoveTowards(
+                transform.position,
+                targetPosition,
+                returnSpeed * Time.deltaTime
+            );
+        }
     }
 }
