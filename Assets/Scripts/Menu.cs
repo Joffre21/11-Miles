@@ -6,9 +6,14 @@ public class Menu : MonoBehaviour
     public string gameSceneName = "SampleScene";
     public static bool startGameOnLoad = false;
 
-    public void StartGame()
+    void Start()
     {
         startGameOnLoad = true;
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+    }
+    public void StartGame()
+    {
         SceneManager.LoadScene(gameSceneName);
     }
 

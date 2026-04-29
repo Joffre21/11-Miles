@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+using UnityEngine.SceneManagement;
+
 public class Player : MonoBehaviour
 {
     Vector3 playerPosition;
@@ -28,6 +30,15 @@ public class Player : MonoBehaviour
     // runtime accumulated angles
     float currentYaw;
     float currentPitch;
+
+    [Header("Speed Progression")]
+    [SerializeField] float speed = 10f;
+    [SerializeField] float speedIncreasePerSecond = 2f;
+    [SerializeField] float maxSpeed = 25f;
+    [SerializeField] string targetSceneName = "Start Menu";
+    private bool triggeredSceneChange = false;
+
+    public float CurrentSpeed => speed;
 
     private GameManager gm;
 
@@ -58,6 +69,17 @@ public class Player : MonoBehaviour
     {
         if (gm == null || !gm.GameStarted)
             return;
+
+        // Speed up over time
+        speed += speedIncreasePerSecond * Time.deltaTime;
+
+        // Check for scene change
+        if (!triggeredSceneChange && speed >= maxSpeed)
+        {
+            triggeredSceneChange = true;
+            SceneManager.LoadScene(targetSceneName);
+            return;
+        }
 
         // Read mouse deltas
         float dx = Input.GetAxisRaw("Mouse X") * mouseSensitivity;
