@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using TMPro;
 
 public class CameraBlink : MonoBehaviour
 {
@@ -17,12 +18,19 @@ public class CameraBlink : MonoBehaviour
     [SerializeField]
     private Image blinkOverlay;
 
+    [Header("Blink UI Controller")]
+    [SerializeField] private TextMeshProUGUI blinkIndicatorText;
+    [SerializeField] private int blinkBars = 5; // Number of “I” bars
+    private float timeSinceLastBlink = 0f;
+
     private Coroutine blinkCoroutine;
     private bool isBlinking = false;
 
     private void Start()
     {
         currentBlinkDuration = blinkDuration;
+        if (blinkIndicatorText != null)
+            blinkIndicatorText.text = "IIIII";
         if (blinkOverlay != null)
         {
             blinkOverlay.color = new Color(0, 0, 0, 0);
@@ -36,6 +44,10 @@ public class CameraBlink : MonoBehaviour
 
     private void Update()
     {
+        timeSinceLastBlink += Time.deltaTime;
+        float t = Mathf.Clamp01(timeSinceLastBlink / blinkInterval);
+        int barsToShow = Mathf.CeilToInt(Mathf.Lerp(blinkBars, 0, t));
+        blinkIndicatorText.text = new string('I', barsToShow).PadRight(blinkBars, ' ');
         if (Input.GetKeyDown(KeyCode.Q) && !isBlinking)
         {
             if (blinkCoroutine != null)
@@ -74,6 +86,7 @@ public class CameraBlink : MonoBehaviour
             yield return new WaitForSeconds(holdTime);
         // Fade out
         yield return StartCoroutine(FadeBlink(1f, 0f, fadeTime));
+        timeSinceLastBlink = 0f;
         isBlinking = false;
     }
 
