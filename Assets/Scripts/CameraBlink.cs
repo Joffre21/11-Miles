@@ -8,20 +8,42 @@ public class CameraBlink : MonoBehaviour
     [SerializeField]
     private float blinkInterval = 5f;
     [SerializeField]
-    private float blinkDuration = 0.15f;
+    private float blinkDuration = 0.5f;
+    [SerializeField]
+    private float blinkDurationIncrement = 0.2f;
+    [SerializeField]
+    private float fadeTime = 0.1f;
+    private float currentBlinkDuration;
     [SerializeField]
     private Image blinkOverlay;
 
+    private Coroutine blinkCoroutine;
+    private bool isBlinking = false;
+
     private void Start()
     {
+        currentBlinkDuration = blinkDuration;
         if (blinkOverlay != null)
         {
             blinkOverlay.color = new Color(0, 0, 0, 0);
-            StartCoroutine(BlinkRoutine());
+            blinkCoroutine = StartCoroutine(BlinkRoutine());
         }
         else
         {
             Debug.LogError("CameraBlink: No blinkOverlay assigned.");
+        }
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Q) && !isBlinking)
+        {
+            if (blinkCoroutine != null)
+            {
+                StopCoroutine(blinkCoroutine);
+            }
+            currentBlinkDuration = blinkDuration; // Reset blink duration on Q press
+            blinkCoroutine = StartCoroutine(BlinkNowAndRestart());
         }
     }
 
@@ -30,11 +52,29 @@ public class CameraBlink : MonoBehaviour
         while (true)
         {
             yield return new WaitForSeconds(blinkInterval);
-            // Fade in
-            yield return StartCoroutine(FadeBlink(0f, 1f, blinkDuration * 0.5f));
-            // Fade out
-            yield return StartCoroutine(FadeBlink(1f, 0f, blinkDuration * 0.5f));
+            yield return StartCoroutine(BlinkOnce());
+            currentBlinkDuration += blinkDurationIncrement;
         }
+    }
+
+    private IEnumerator BlinkNowAndRestart()
+    {
+        yield return StartCoroutine(BlinkOnce());
+        blinkCoroutine = StartCoroutine(BlinkRoutine());
+    }
+
+    private IEnumerator BlinkOnce()
+    {
+        isBlinking = true;
+        // Fade in
+        yield return StartCoroutine(FadeBlink(0f, 1f, fadeTime));
+        // Hold at full black
+        float holdTime = Mathf.Max(0f, currentBlinkDuration - 2f * fadeTime);
+        if (holdTime > 0f)
+            yield return new WaitForSeconds(holdTime);
+        // Fade out
+        yield return StartCoroutine(FadeBlink(1f, 0f, fadeTime));
+        isBlinking = false;
     }
 
     private IEnumerator FadeBlink(float from, float to, float duration)

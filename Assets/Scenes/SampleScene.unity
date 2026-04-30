@@ -441,7 +441,7 @@ MonoBehaviour:
   invertY: 1
   speed: 10
   speedIncreasePerSecond: 1.5
-  maxSpeed: 50
+  maxSpeed: 100
   targetSceneName: Start Menu
   turnSpeed: 10
   targetPosition: {x: 16.988, y: 5.994, z: 0.312}
@@ -998,6 +998,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   blinkInterval: 5
   blinkDuration: 0.5
+  blinkDurationIncrement: 0.5
+  fadeTime: 0.1
   blinkOverlay: {fileID: 540031757}
 --- !u!1 &1086771848
 GameObject:
