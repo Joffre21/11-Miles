@@ -10,7 +10,6 @@ public class Car : MonoBehaviour
     [SerializeField] private float spinSpeed = 200f;
     [SerializeField] private Vector3 targetPosition = new Vector3(17.536f, 4.6207f, -0.16f);
     [SerializeField] private float returnSpeed = 5f;
-    private bool isBeingMoved = false;
     private Collider carCollider;
     private Transform steeringWheel;
     void Awake()
